@@ -8,7 +8,7 @@ def index(request):
     nodes, links = [], []
 
     for character in characters:
-        nodes.append({ 'name': character.first_name })
+        nodes.append({ 'name': str(character.first_name) })
 
     context = { 'nodes': nodes, 'links': links }
 
