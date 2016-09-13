@@ -1,7 +1,10 @@
+from django.http import HttpResponse
 from django.shortcuts import render
 
 from gravapp.models import Character
-# Create your views here.
+from .forms import CharacterForm
+
+from django.views.decorators.csrf import csrf_exempt
 
 def index(request):
     characters = Character.objects.all()
@@ -11,5 +14,10 @@ def index(request):
         nodes.append({ 'name': str(character.first_name) })
 
     context = { 'nodes': nodes, 'links': links }
+    form = CharacterForm()
 
-    return render(request, 'index.html', { 'context': context })
+    return render(request, 'index.html', { 'context': context, 'form': form })
+
+@csrf_exempt
+def create_character(request):
+    return HttpResponse('Success');

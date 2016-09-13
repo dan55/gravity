@@ -19,6 +19,8 @@ from django.contrib import admin
 from gravapp import views
 
 urlpatterns = [
-    url(r'^$', views.index, name='index'),    
+    url(r'^$', views.index, name='index'),
+    url(r'index', views.index, name='index'),        
     url(r'^admin/', admin.site.urls),
+    url(r'create_character', views.create_character, name='create_character'),        
 ]
