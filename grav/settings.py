@@ -74,7 +74,18 @@ WSGI_APPLICATION = 'grav.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/1.10/ref/settings/#databases
 
-# Update database configuration with $DATABASE_URL.
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'grav',
+        'USER': 'gravuser',
+        'PASSWORD': 'gravpass',
+        'HOST': 'localhost',
+    }
+}
+
+# See Heroku config instructions
+
 import dj_database_url
 db_from_env = dj_database_url.config(conn_max_age=500)
 DATABASES['default'].update(db_from_env)
