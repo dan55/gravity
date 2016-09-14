@@ -80,7 +80,7 @@
                 var name = { 'first_name': fst_name, 'last_name': lst_name };
 
                 $.post('/create_character/', name, function(res) {
-                    alert(res);
+                    console.log(res);
                 }); 
 
                 return false;

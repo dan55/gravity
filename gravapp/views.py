@@ -20,4 +20,11 @@ def index(request):
 
 @csrf_exempt
 def create_character(request):
+    post = request.POST
+    first = str(post['first_name'])
+    last = str(post['last_name'])
+    character = Character(first_name=first, last_name=last)
+
+    character.save()
+
     return HttpResponse('Success');
