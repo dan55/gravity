@@ -22,5 +22,6 @@ urlpatterns = [
     url(r'^$', views.index, name='index'),
     url(r'index', views.index, name='index'),        
     url(r'^admin/', admin.site.urls),
-    url(r'create_character', views.create_character, name='create_character'),        
+    url(r'create_character', views.create_character, name='create_character'),
+    url(r'delete_character', views.delete_character, name='delete_character'),
 ]

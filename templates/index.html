@@ -103,10 +103,10 @@
             });
 
             $('#del-btn').click(function() {
-                var name = $('#id_first_name').val();
+                var name = $first_name_field.val();
 
-                //$.post('/delete_character/', name, function(res) {
-                //    console.log(res);
+                $.post('/delete_character/', {'name': name}, function(res) {
+                    console.log(res);
                     for (var i = 0; i < nodes.length; i++) {
                         if (nodes[i].name.toLowerCase() === name.toLowerCase()) {
                             nodes.splice(i, 1);
@@ -116,7 +116,7 @@
                     updateGraph();
 
                     clearFields();
-                //});
+                });
 
                 return false;
             });

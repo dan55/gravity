@@ -18,7 +18,7 @@ def index(request):
 
     return render(request, 'index.html', { 'context': context, 'form': form })
 
-@csrf_exempt
+@csrf_exempt # TODO: Don't do this
 def create_character(request):
     post = request.POST
     first = str(post['first_name'])
@@ -26,5 +26,13 @@ def create_character(request):
     character = Character(first_name=first, last_name=last)
 
     character.save()
+
+    return HttpResponse('Success');
+
+@csrf_exempt
+def delete_character(request):
+    post = request.POST
+
+    Character.objects.filter(first_name__iexact=request.POST['name']).delete()
 
     return HttpResponse('Success');
