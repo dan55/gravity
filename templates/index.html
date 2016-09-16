@@ -59,6 +59,8 @@
               .attr("class", "node")
               .call(force.drag);
 
+            node.exit().remove();
+
             node.append("circle")
               .attr("r", 5);
               //.attr("fill", function(d) { return color(d.group); })
@@ -80,9 +82,12 @@
     </script>
     <script>
         $(function() { 
-            $('input[type=submit]').click(function() {              
-                var fst_name = $('#id_first_name').val();
-                var lst_name = $('#id_last_name').val();
+            var $first_name_field = $('#id_first_name');
+            var $last_name_field = $('#id_last_name');
+
+            $('#create-btn').click(function() {
+                var fst_name = $first_name_field.val();
+                var lst_name = $last_name_field.val();
                 var name = { 'first_name': fst_name, 'last_name': lst_name };
 
                 $.post('/create_character/', name, function(res) {
@@ -90,15 +95,42 @@
                     nodes.push({ 'name': fst_name });
 
                     updateGraph();
+
+                    clearFields();
                 }); 
 
                 return false;
             });
+
+            $('#del-btn').click(function() {
+                var name = $('#id_first_name').val();
+
+                //$.post('/delete_character/', name, function(res) {
+                //    console.log(res);
+                    for (var i = 0; i < nodes.length; i++) {
+                        if (nodes[i].name.toLowerCase() === name.toLowerCase()) {
+                            nodes.splice(i, 1);
+                        }
+                    }
+
+                    updateGraph();
+
+                    clearFields();
+                //});
+
+                return false;
+            });
+
+            function clearFields() {
+                $first_name_field.val('');
+                $last_name_field.val('');
+            }
         });
     </script>
     <form method="post">
         {% csrf_token %}
         {{ form }}
 
-        <input type="submit" value="Create" />
+        <input id="create-btn" type="submit" value="Create" />
+        <input id="del-btn" type="submit" value="Delete (looks at first name only)" />
     </form>
