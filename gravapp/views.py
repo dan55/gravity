@@ -1,7 +1,7 @@
 from django.http import HttpResponse
 from django.shortcuts import render
 
-from gravapp.models import Character
+from gravapp.models import Character, Relationship
 from .forms import CharacterForm
 
 from django.views.decorators.csrf import csrf_exempt
@@ -12,6 +12,12 @@ def index(request):
 
     for character in characters:
         nodes.append({ 'name': str(character.first_name) })
+
+    for rel in Relationship.objects.all():
+        source = str(rel.character_1.first_name)
+        target = str(rel.character_2.first_name)
+
+        links.append({ 'source': source, 'target': target })
 
     context = { 'nodes': nodes, 'links': links }
     form = CharacterForm()
