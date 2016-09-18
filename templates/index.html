@@ -15,8 +15,11 @@
 </style>
 <body>
     {% load static %}
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.css">
+
     <script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
     <script src="https://d3js.org/d3.v3.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"   integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU="   crossorigin="anonymous"></script>
     <!--
     <script src={% static "gravapp/d3.js" %}></script>
     <script src={% static "gravapp/jquery.js" %}></script>
@@ -52,6 +55,12 @@
         });*/
 
         //var json = JSON.parse((JSON.stringify(data)));
+
+        /*$(function() {
+            $('#id_first_name').autocomplete({
+                source: ['Slothrop', 'Katje']
+            });
+        });*/
 
         function updateGraph() {
             force
@@ -103,6 +112,9 @@
                     .attr("x2", function(d) { return d.target.x; })
                     .attr("y2", function(d) { return d.target.y; });
             });
+
+            updateAutocomplete()
+
         } updateGraph();
 
         function edgesFromLinks() {
@@ -117,6 +129,18 @@
                 edges.push({source: sourceNode, target: targetNode});
             });
             return edges;
+        };
+
+        function updateAutocomplete() {
+            names = [];
+
+            for (var i = 0; i < nodes.length; i++) {
+                names.push(nodes[i].name);
+            }
+
+            $('#id_first_name').autocomplete({
+                source: names
+            });
         };
     </script>
     <script>
@@ -212,6 +236,8 @@
 
                 $('input[type=text]').val('');
             }
+
+            updateAutocomplete();
         });
     </script>
     <h3>Characters</h3>
