@@ -23,7 +23,7 @@
     -->
     <script>
         var width = 960,
-        height = 500
+        height = 450;
 
         var svg = d3.select("body").append("svg")
         .attr("width", width)
@@ -164,10 +164,24 @@
             }
         });
     </script>
+    <h3>Characters</h3>
     <form method="post">
         {% csrf_token %}
         {{ form }}
 
         <input id="create-btn" type="submit" value="Create" />
         <input id="del-btn" type="submit" value="Delete (looks at first name only)" />
+    </form>
+
+    <h3>Relationships</h3>
+    <form method="post" style="margin-top: 15px;">
+        {% csrf_token %}
+        
+        <label for="id_first_character">Character</label> 
+        <input id="id_first_character" required />
+        <label for="id_second_character">knows</label> 
+        <input id="id_second_character" required />
+
+        <input id="rel-create-btn" type="submit" value="Add" />
+        <input id="rel-del-btn" type="submit" value="Delete" />
     </form>
