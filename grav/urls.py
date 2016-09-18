@@ -25,4 +25,5 @@ urlpatterns = [
     url(r'create_character', views.create_character, name='create_character'),
     url(r'delete_character', views.delete_character, name='delete_character'),
     url(r'create_relationship', views.create_relationship, name='create_relationship'),
+    url(r'delete_relationship', views.delete_relationship, name='delete_relationship'),
 ]

@@ -58,3 +58,24 @@ def create_relationship(request):
     Relationship.objects.create(character_1=first, character_2=second)
 
     return HttpResponse('Success')
+
+@csrf_exempt
+def delete_relationship(request):
+    post = request.POST
+
+    c1 = Character.objects.get(first_name__iexact=post['source'])
+    c2 = Character.objects.get(first_name__iexact=post['target'])
+
+    try:
+        r = Relationship.objects.get(character_1=c1, character_2=c2)
+    except Relationship.DoesNotExist:
+        try: 
+            r= Relationship.object.get(character_1=c2, character_2=c2)
+        except Relationship.DoesNotExist:
+            return HttpResponse('DoesNotExist')
+
+    if r:
+        r.delete()
+        return HttpResponse('Success')
+    else:
+        return HttpResponse('Failure')

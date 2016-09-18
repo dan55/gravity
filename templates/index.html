@@ -155,14 +155,18 @@
                     updateGraph();
 
                     clearFields();
+
                 });
 
                 return false;
             });
 
+            var $name_of_first_field = $('#id_first_character'),
+                $name_of_second_field = $('#id_second_character');
+
             $('#rel-create-btn').click(function() {
-                var name_of_first = $('#id_first_character').val(),
-                    name_of_second = $('#id_second_character').val();
+                var name_of_first = $name_of_first_field.val(),
+                    name_of_second = $name_of_second_field.val();
 
                 var rel = { 'source': name_of_first, 'target': name_of_second };
 
@@ -177,6 +181,29 @@
                 });
 
                 return false;
+            });
+
+            $('#rel-del-btn').click(function() {
+                var name_of_first = $name_of_first_field.val(),
+                    name_of_second = $name_of_second_field.val();
+
+                var rel = { 'source': name_of_first, 'target': name_of_second };
+
+                $.post('/delete_relationship/', rel, function(res) {
+                    console.log(res);
+
+                    for (var i = 0; i < links.length; i++) {
+                        if (links[i].source.name.toLowerCase() === rel.source.toLowerCase() && links[i].target.name.toLowerCase() === rel.target.toLowerCase()) {
+                            links.splice(i, 1);
+                        }
+                    }
+
+                    updateGraph();
+
+                    clearFields();
+                });
+
+                return false 
             });
 
             function clearFields() {
