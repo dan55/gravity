@@ -193,7 +193,7 @@
                     console.log(res);
 
                     for (var i = 0; i < links.length; i++) {
-                        if (links[i].source.name.toLowerCase() === rel.source.toLowerCase() && links[i].target.name.toLowerCase() === rel.target.toLowerCase()) {
+                        if (links[i].source.toLowerCase() === rel.source.toLowerCase() && links[i].target.toLowerCase() === rel.target.toLowerCase()) {
                             links.splice(i, 1);
                         }
                     }
