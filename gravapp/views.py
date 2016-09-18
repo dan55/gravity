@@ -19,6 +19,8 @@ def index(request):
 
         links.append({ 'source': source, 'target': target })
 
+    #links.append({ 'source': 0, 'target': 1 })
+
     context = { 'nodes': nodes, 'links': links }
     form = CharacterForm()
 
