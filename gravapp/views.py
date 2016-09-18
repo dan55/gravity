@@ -35,7 +35,7 @@ def create_character(request):
 
     character.save()
 
-    return HttpResponse('Success');
+    return HttpResponse('Success')
 
 @csrf_exempt
 def delete_character(request):
@@ -43,4 +43,18 @@ def delete_character(request):
 
     Character.objects.filter(first_name__iexact=request.POST['name']).delete()
 
-    return HttpResponse('Success');
+    return HttpResponse('Success')
+
+@csrf_exempt
+def create_relationship(request):
+    post = request.POST
+    source = str(post['source'])
+    target = str(post['target'])
+
+    # TODO: Need to handle name collisions 
+    first = Character.objects.get(first_name__iexact=source)
+    second = Character.objects.get(first_name__iexact=target)
+
+    Relationship.objects.create(character_1=first, character_2=second)
+
+    return HttpResponse('Success')

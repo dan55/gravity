@@ -123,8 +123,8 @@
             var $last_name_field = $('#id_last_name');
 
             $('#create-btn').click(function() {
-                var fst_name = $first_name_field.val();
-                var lst_name = $last_name_field.val();
+                var fst_name = $first_name_field.val().trim();
+                var lst_name = $last_name_field.val().trim();
                 var name = { 'first_name': fst_name, 'last_name': lst_name };
 
                 $.post('/create_character/', name, function(res) {
@@ -158,9 +158,30 @@
                 return false;
             });
 
+            $('#rel-create-btn').click(function() {
+                var name_of_first = $('#id_first_character').val(),
+                    name_of_second = $('#id_second_character').val();
+
+                var rel = { 'source': name_of_first, 'target': name_of_second };
+
+                $.post('/create_relationship/', rel, function(res) {
+                    console.log(res);
+
+                    links.push(rel);
+
+                    updateGraph();
+
+                    clearFields();
+                });
+
+                return false;
+            });
+
             function clearFields() {
-                $first_name_field.val('');
-                $last_name_field.val('');
+                //$first_name_field.val('');
+                //$last_name_field.val('');
+
+                $('input[type=text]').val('');
             }
         });
     </script>
