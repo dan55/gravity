@@ -105,15 +105,22 @@
         };
 
         function updateAutocomplete() {
-            names = [];
+            var names = [],
+                sources = [],
+                targets = [];
 
             for (var i = 0; i < nodes.length; i++) {
                 names.push(nodes[i].name);
             }
 
-            $('#id_first_name').autocomplete({
-                source: names
-            });
+            for (var i = 0; i < links.length; i++) {
+                sources.push(links[i].source);
+                targets.push(links[i].target);
+            }
+
+            $('#id_first_name').autocomplete({ source: names });
+            $('#id_first_character').autocomplete({ source: sources });
+            $('#id_second_character').autocomplete({ source: targets });
         };
     </script>
     <script>
