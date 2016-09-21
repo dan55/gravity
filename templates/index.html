@@ -16,6 +16,7 @@
 <body>
     {% load static %}
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 
     <script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
     <script src="https://d3js.org/d3.v3.min.js"></script>
@@ -119,23 +120,25 @@
             }
 
             $('#id_first_name').autocomplete({ source: names });
-            $('#id_first_character').autocomplete({ source: sources });
-            $('#id_second_character').autocomplete({ source: targets });
+            $('#id_first_character').autocomplete({ source: names });//sources });
+            $('#id_second_character').autocomplete({ source: names });//targets });
         };
     </script>
     <script>
         $(function() { 
             var $first_name_field = $('#id_first_name');
-            var $last_name_field = $('#id_last_name');
+            //var $last_name_field = $('#id_last_name');
 
             $('#create-btn').click(function() {
-                var fst_name = $first_name_field.val().trim();
-                var lst_name = $last_name_field.val().trim();
-                var name = { 'first_name': fst_name, 'last_name': lst_name };
+                var full_name = $first_name_field.val().trim();
+                var name_arr = full_name.split(' ');
+                lst_name = name_arr.length > 1 ? name_arr.reverse()[0] : '';
+
+                var name = { 'first_name': name_arr[0], 'last_name': lst_name };
 
                 $.post('/create_character/', name, function(res) {
                     console.log(res);
-                    nodes.push({ 'name': fst_name });
+                    nodes.push({ 'name': full_name });
 
                     updateGraph();
 
@@ -217,24 +220,40 @@
             updateAutocomplete();
         });
     </script>
-    <h3>Characters</h3>
-    <form method="post">
-        {% csrf_token %}
-        {{ form }}
-
-        <input id="create-btn" type="submit" value="Create" />
-        <input id="del-btn" type="submit" value="Delete (looks at first name only)" />
-    </form>
-
-    <h3>Relationships</h3>
-    <form method="post" style="margin-top: 15px;">
-        {% csrf_token %}
-        
-        <label for="id_first_character">Character</label> 
-        <input id="id_first_character" required />
-        <label for="id_second_character">knows</label> 
-        <input id="id_second_character" required />
-
-        <input id="rel-create-btn" type="submit" value="Add" />
-        <input id="rel-del-btn" type="submit" value="Delete" />
-    </form>
+    
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-4">
+                <h3>Characters</h3>
+                <form method="post">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <label for="id_first_name">Name: </label>
+                        <input type="text" id="id_first_name" required />
+                    </div>
+                    <div class="form-group">
+                        <input id="create-btn" class="btn btn-primary" type="submit" value="Create" />
+                        <input id="del-btn" class="btn btn-warning" type="submit" value="Delete" />
+                    </div>
+            </form>
+            </div>
+            <div class="col-sm-4">
+                <h3>Relationships</h3>
+                <form method="post" class="form-inline">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <label for="id_first_character">Character</label> 
+                        <input id="id_first_character" required />
+                    </div>
+                    <div class="form-group">
+                        <label for="id_second_character">knows</label> 
+                        <input id="id_second_character" required />
+                    </div>
+                    <div class="form-group">
+                        <input id="rel-create-btn" class="btn btn-primary" type="submit" value="Add" />
+                        <input id="rel-del-btn" class="btn btn-warning" type="submit" value="Delete" />
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
