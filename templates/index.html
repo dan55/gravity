@@ -47,6 +47,8 @@
         var nodes = data.nodes;
         var links = data.links;
 
+        var color = d3.scale.category20;
+
         function updateGraph() {
             force
               .nodes(nodes)
@@ -64,8 +66,8 @@
             node.exit().remove();
 
             node.append("circle")
-              .attr("r", 5);
-              //.attr("fill", function(d) { return color(d.group); })
+              .attr("r", 5)
+              .attr("fill", function(d) { return color(d.group); });
 
             node.append("text")
               .attr("dx", 12)
