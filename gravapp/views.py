@@ -8,23 +8,61 @@ from django.views.decorators.csrf import csrf_exempt
 
 def index(request):
     characters = Character.objects.all()
-    nodes, links = [], []
+    relationships = Relationship.objects.all()
+
+    nodes, links, graph = [], [], {}
 
     for character in characters:
-        nodes.append({ 'name': str(character.first_name) })
+        name = str(character)
+        nodes.append({ 'name': name, 'group': 0 })
+        graph[name] = []
 
-    for rel in Relationship.objects.all():
-        source = str(rel.character_1.first_name)
-        target = str(rel.character_2.first_name)
+    for rel in relationships:
+        source = str(rel.character_1)
+        target = str(rel.character_2)
 
         links.append({ 'source': source, 'target': target })
 
+        graph[source].append(target)
+        graph[target].append(source)
     #links.append({ 'source': 0, 'target': 1 })
 
-    context = { 'nodes': nodes, 'links': links }
+    update_character_groups(nodes, graph)
+
+    context = { 'nodes': nodes, 'links': links, 'graph': graph }
     form = CharacterForm()
 
     return render(request, 'index.html', { 'context': context, 'form': form })
+
+def dfs(start, graph, visited=None):
+    if visited is None:
+        visited = [start]
+
+    for node in graph[start]:
+        if node not in visited:
+            visited.append(node)
+            dfs(node, graph, visited)
+
+    return visited
+
+def update_group(nodes, visited, group_num):
+    for character in visited:
+        for node in nodes:
+            if character == node['name']:
+                node['group'] = group_num
+
+def update_character_groups(nodes, graph):
+    '''
+    Takes a set of characters (node's name) and groups them into connected components (node's group)
+    '''
+    connected_components = 1
+
+    for node in nodes:
+        if node['group'] == 0: # has not been visited
+            update_group(nodes, dfs(node['name'], graph), connected_components)
+            connected_components += 1
+
+    return nodes
 
 @csrf_exempt # TODO: Don't do this
 def create_character(request):
