@@ -64,6 +64,9 @@ def update_character_groups(nodes, graph):
 
     return nodes
 
+def get_first_name(full_name): 
+    return full_name.split()[0]
+
 @csrf_exempt # TODO: Don't do this
 def create_character(request):
     post = request.POST
@@ -79,7 +82,7 @@ def create_character(request):
 def delete_character(request):
     post = request.POST
 
-    Character.objects.filter(first_name__iexact=request.POST['name']).delete()
+    Character.objects.filter(first_name__iexact=get_first_name(request.POST['name'])).delete()
 
     return HttpResponse('Success')
 
@@ -89,9 +92,9 @@ def create_relationship(request):
     source = str(post['source'])
     target = str(post['target'])
 
-    # TODO: Need to handle name collisions 
-    first = Character.objects.get(first_name__iexact=source)
-    second = Character.objects.get(first_name__iexact=target)
+    # TODO: Need to handle name collisions / change to full names 
+    first = Character.objects.get(first_name__iexact=get_first_name(source))
+    second = Character.objects.get(first_name__iexact=get_first_name(target))
 
     Relationship.objects.create(character_1=first, character_2=second)
 
@@ -101,8 +104,8 @@ def create_relationship(request):
 def delete_relationship(request):
     post = request.POST
 
-    c1 = Character.objects.get(first_name__iexact=post['source'])
-    c2 = Character.objects.get(first_name__iexact=post['target'])
+    c1 = Character.objects.get(first_name__iexact=get_first_name(post['source']))
+    c2 = Character.objects.get(first_name__iexact=get_first_name(post['target']))
 
     try:
         r = Relationship.objects.get(character_1=c1, character_2=c2)
