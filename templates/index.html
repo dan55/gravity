@@ -268,7 +268,7 @@
         <div class="row">
             <div class="col-sm-4">
                 <h3>Characters</h3>
-                <form method="post">
+                <form method="post" class="well">
                     {% csrf_token %}
                     <div class="form-group">
                         <label for="id_first_name">Name: </label>
@@ -282,21 +282,27 @@
             </div>
             <div class="col-sm-4">
                 <h3>Relationships</h3>
-                <form method="post" class="form-inline">
+                <form method="post" class="form-horizontal well">
                     {% csrf_token %}
-                    <div class="form-group">
-                        <label for="id_first_character">Character</label> 
-                        <input id="id_first_character" required />
+                    <div class="control-group">
+                        <label for="id_first_character" class="control-label">Character</label> 
+                        <div class="controls">
+                            <input id="id_first_character" class="input-block-level" required />
+                        </div>
                     </div>
-                    <div class="form-group">
-                        <label for="id_second_character">knows</label> 
-                        <input id="id_second_character" required />
+                    <div class="control-group">
+                        <label for="id_second_character" class="control-label">knows</label> 
+                        <div class="controls">
+                            <input id="id_second_character" required />
+                        </div>
                     </div>
-                    <div class="form-group">
-                        <label for="id_page_num">from page</label>
-                        <input id="id_page_num" type="number" value="1" />
+                    <div class="control-group">
+                        <label for="id_page_num" class="control-label">from page</label>
+                        <div class="controls">
+                            <input id="id_page_num" type="number" value="1" />
+                        </div>
                     </div>
-                    <div class="form-group">
+                    <div class="control-group">
                         <input id="rel-create-btn" class="btn btn-primary" type="submit" value="Add" />
                         <input id="rel-del-btn" class="btn btn-warning" type="submit" value="Delete" />
                     </div>
