@@ -188,7 +188,7 @@
                     links.push(rel);
                     
                     // get the corresponding nodes 
-                    /*
+
                     var source_node, 
                         target_node,
                         update_group;
@@ -208,7 +208,7 @@
                     // TODO: need to also add to graph
 
                     updateNodeGroups(source_node, update_group);
-                    */
+                    
                     updateGraph();
 
                     clearFields();
@@ -242,6 +242,7 @@
 
             function updateNodeGroups(start_node, group_num) {
                 start_node.group = group_num;
+                /*
                 let known_nodes = graph[start_node] 
 
                 for (let i = 0; i < known_nodes.length; i++) {
@@ -251,6 +252,7 @@
                         }
                     }
                 }
+                */
             }
 
             function clearFields() {
