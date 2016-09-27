@@ -17,7 +17,7 @@ class Character(models.Model):
 class Relationship(models.Model):
     character_1 = models.ForeignKey('Character', related_name='first_character')
     character_2 = models.ForeignKey('Character', related_name='second_character')
-    page = models.IntegerField
+    page = models.IntegerField(1024)
 
     def __str__(self):
         return str(self.character_1) + ' - ' + str(self.character_2)

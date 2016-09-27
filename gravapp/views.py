@@ -91,12 +91,13 @@ def create_relationship(request):
     post = request.POST
     source = str(post['source'])
     target = str(post['target'])
+    page_num = post['page_num']
 
     # TODO: Need to handle name collisions / change to full names 
     first = Character.objects.get(first_name__iexact=get_first_name(source))
     second = Character.objects.get(first_name__iexact=get_first_name(target))
 
-    Relationship.objects.create(character_1=first, character_2=second)
+    Relationship.objects.create(character_1=first, character_2=second, page=page_num)
 
     return HttpResponse('Success')
 
