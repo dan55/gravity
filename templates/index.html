@@ -46,6 +46,7 @@
         var data = {{ context|safe }};
         var nodes = data.nodes;
         var links = data.links;
+        var graph = data.graph;
 
         var color = d3.scale.category20();
 
@@ -134,9 +135,11 @@
             $('#create-btn').click(function() {
                 var full_name = $first_name_field.val().trim();
                 var name_arr = full_name.split(' ');
-                lst_name = name_arr.length > 1 ? name_arr.reverse()[0] : '';
+                
+                var fst_name = name_arr[0];
+                var lst_name = name_arr.length > 1 ? name_arr.reverse()[0] : '';
 
-                var name = { 'first_name': name_arr[0], 'last_name': lst_name };
+                var name = { 'first_name': fst_name, 'last_name': lst_name };
 
                 $.post('/create_character/', name, function(res) {
                     console.log(res);
@@ -183,7 +186,29 @@
                     console.log(res);
 
                     links.push(rel);
+                    
+                    // get the corresponding nodes 
+                    /*
+                    var source_node, 
+                        target_node,
+                        update_group;
 
+                    for (let i = 0; i < nodes.length; i++) {
+                        let node = nodes[i];
+
+                        if (node.name === rel.source) {
+                            source_node = node;
+                        }
+                        else if (node.name === rel.target) {
+                            target_node = node;
+                            update_group = node.group;
+                        }
+                    }
+
+                    // TODO: need to also add to graph
+
+                    updateNodeGroups(source_node, update_group);
+                    */
                     updateGraph();
 
                     clearFields();
@@ -214,6 +239,19 @@
 
                 return false 
             });
+
+            function updateNodeGroups(start_node, group_num) {
+                start_node.group = group_num;
+                let known_nodes = graph[start_node] 
+
+                for (let i = 0; i < known_nodes.length; i++) {
+                    for (let j = 0; j < nodes.length; j++) {
+                        if (known_nodes[i] === nodes[j]) {
+                            updateNodeGroups(nodes[j], group_num);
+                        }
+                    }
+                }
+            }
 
             function clearFields() {
                 $('input[type=text]').val('');
