@@ -10,6 +10,7 @@
 
     <!--<link rel="stylesheet" type="text/css" href={% static 'gravapp/index.css' %}>-->
     <style>
+        /* d3 */
         .link {
           stroke: #ccc;
           stroke-width: 1.5px;
@@ -19,7 +20,44 @@
           pointer-events: none;
           font: 10px sans-serif;
         }
+
+        /* app */
+        .gimme-some-room {
+            margin-top: 10px;
+        }
+
+        /* better buttons */
+        .btn {
+            padding: 14px 24px;
+            border: 0 none;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+         
+        .btn:focus, .btn:active:focus, .btn.active:focus {
+            outline: 0 none;
+        }
+         
+        .btn-primary {
+            background: #0099cc;
+            color: #ffffff;
+        }
+         
+        .btn-primary:hover, .btn-primary:focus, .btn-primary:active, .btn-primary.active, .open > .dropdown-toggle.btn-primary {
+            background: #33a6cc;
+        }
+         
+        .btn-primary:active, .btn-primary.active {
+            background: #007299;
+            box-shadow: none;
+        }
+
+        .btn.sharp {
+             border-radius:0;
+        }
     </style>
+
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 
@@ -32,7 +70,7 @@
     -->
     <script>
         var width = 960,
-        height = 450;
+        height = 300;
 
         var svg = d3.select("body").append("svg")
         .attr("width", width)
@@ -268,13 +306,15 @@
         <div class="row">
             <div class="col-sm-4">
                 <h3>Characters</h3>
-                <form method="post" class="well">
+                <form method="post" class="form-horizontal well">
                     {% csrf_token %}
-                    <div class="form-group">
-                        <label for="id_first_name">Name: </label>
-                        <input type="text" id="id_first_name" required />
+                    <div class="control-group">
+                        <label for="id_first_name">Name</label>
+                        <div class="controls">
+                            <input type="text" id="id_first_name" required />
+                        </div>
                     </div>
-                    <div class="form-group">
+                    <div class="control-group gimme-some-room">
                         <input id="create-btn" class="btn btn-primary" type="submit" value="Create" />
                         <input id="del-btn" class="btn btn-warning" type="submit" value="Delete" />
                     </div>
@@ -302,7 +342,7 @@
                             <input id="id_page_num" type="number" value="1" />
                         </div>
                     </div>
-                    <div class="control-group">
+                    <div class="control-group gimme-some-room">
                         <input id="rel-create-btn" class="btn btn-primary" type="submit" value="Add" />
                         <input id="rel-del-btn" class="btn btn-warning" type="submit" value="Delete" />
                     </div>
