@@ -242,18 +242,13 @@
             });
 
             function updateNodeGroups(start_node, group_num) {
-                start_node.group = group_num;
-                /*
-                let known_nodes = graph[start_node] 
+                let old_group_num = start_node.group;
 
-                for (let i = 0; i < known_nodes.length; i++) {
-                    for (let j = 0; j < nodes.length; j++) {
-                        if (known_nodes[i] === nodes[j]) {
-                            updateNodeGroups(nodes[j], group_num);
-                        }
+                for (let i = 0; i < nodes.length; i++) {
+                    if (nodes[i].group === old_group_num) {
+                        nodes[i].group = group_num;
                     }
                 }
-                */
             }
 
             function clearFields() {
