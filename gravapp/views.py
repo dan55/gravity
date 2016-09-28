@@ -112,7 +112,7 @@ def delete_relationship(request):
         r = Relationship.objects.get(character_1=c1, character_2=c2)
     except Relationship.DoesNotExist:
         try: 
-            r= Relationship.objects.get(character_1=c2, character_2=c2)
+            r= Relationship.objects.get(character_1=c2, character_2=c1)
         except Relationship.DoesNotExist:
             return HttpResponse('DoesNotExist')
 
