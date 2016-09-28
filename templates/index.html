@@ -8,9 +8,10 @@
 <body>
     {% load static %}
 
-    <!--<link rel="stylesheet" type="text/css" href={% static 'gravapp/index.css' %}>-->
+    <link rel="stylesheet" type="text/css" href={% static 'gravapp/index.css' %}>
     <style>
         /* d3 */
+        /*
         .link {
           stroke: #ccc;
           stroke-width: 1.5px;
@@ -20,7 +21,7 @@
           pointer-events: none;
           font: 10px sans-serif;
         }
-
+        */
         /* app */
         .gimme-some-room {
             margin-top: 10px;
@@ -70,7 +71,7 @@
     -->
     <script>
         var width = 960,
-        height = 300;
+        height = 450;
 
         var svg = d3.select("body").append("svg")
         .attr("width", width)
