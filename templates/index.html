@@ -27,6 +27,10 @@
             margin-top: 10px;
         }
 
+        .gimme-some-room-left {
+            margin-left: 10px;
+        }
+
         /* better buttons */
         .btn {
             padding: 14px 24px;
@@ -173,6 +177,11 @@
     </script>
     <script>
         $(function() { 
+            $('#about').click(function() {
+                $('#dialog').dialog();
+                return false;
+            });
+
             var $first_name_field = $('#id_first_name');
             //var $last_name_field = $('#id_last_name');
 
@@ -321,7 +330,7 @@
                     </div>
             </form>
             </div>
-            <div class="col-sm-4">
+            <div class="col-sm-5">
                 <h3>Relationships</h3>
                 <form method="post" class="form-horizontal well">
                     {% csrf_token %}
@@ -348,6 +357,12 @@
                         <input id="rel-del-btn" class="btn btn-warning" type="submit" value="Delete" />
                     </div>
                 </form>
+            </div>
+            <div class="col-sm-3">
+                <a href="#" id="about"><h3>About</h3></a>
+                <div id="dialog" title="What is this?" class="ui-helper-hidden">
+                    <p>An attempt to help visualize relationships among characters in Gravity's Rainbow. Based on Mike Bostock's <a href="https://bl.ocks.org/mbostock/950642" target="blank">amazing</a> <a href="https://bl.ocks.org/mbostock/4062045" target="blank">work</a>.</p>
+                </div>
             </div>
         </div>
     </div>
