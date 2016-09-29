@@ -8,6 +8,9 @@
 <body>
     {% load static %}
 
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
     <link rel="stylesheet" type="text/css" href={% static 'gravapp/index.css' %}>
     <style>
         /* d3 */
@@ -27,13 +30,12 @@
             margin-top: 10px;
         }
 
-        .gimme-some-room-left {
-            margin-left: 10px;
+        .ui-widget-content a {
+            color: #337ab7; /* override jquery ui's override */
         }
-
         /* better buttons */
         .btn {
-            padding: 14px 24px;
+            padding: 10px 20px;
             border: 0 none;
             font-weight: 700;
             letter-spacing: 1px;
@@ -62,9 +64,6 @@
              border-radius:0;
         }
     </style>
-
-    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.css">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 
     <script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
     <script src="https://d3js.org/d3.v3.min.js"></script>
@@ -362,6 +361,7 @@
                 <a href="#" id="about"><h3>About</h3></a>
                 <div id="dialog" title="What is this?" class="ui-helper-hidden">
                     <p>An attempt to help visualize relationships among characters in Gravity's Rainbow. Based on Mike Bostock's <a href="https://bl.ocks.org/mbostock/950642" target="blank">amazing</a> <a href="https://bl.ocks.org/mbostock/4062045" target="blank">work</a>.</p>
+                    <p>See <a href="http://gravitys-rainbow.pynchonwiki.com/wiki/index.php" target="blank">here</a> and <a href="http://www.math.harvard.edu/~ctm/links/culture/rainbow.bell.html" target="blank">here</a> for summaries and other goodness.</p>
                 </div>
             </div>
         </div>
